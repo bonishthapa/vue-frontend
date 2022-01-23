@@ -1,49 +1,64 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import Home from "../views/Home.vue";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: "/",
+    name: "Home",
+    component: Home,
   },
   {
-    path: '/about',
-    name: 'About',
+    path: "/about",
+    name: "About",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
   {
-    path: '/productdetail/:slug',
-    name: 'ProductDetail',
-    component: () => import('../components/ProductDetail.vue')
+    path: "/productdetail/:slug",
+    name: "ProductDetail",
+    component: () => import("../components/ProductDetail.vue"),
   },
   {
-    path: '/category/:id',
-    name: 'CategoryProduct',
-    component: () => import('../components/CategoryProduct.vue')
+    path: "/category/:id",
+    name: "CategoryProduct",
+    component: () => import("../components/CategoryProduct.vue"),
   },
   {
-    path: '/search/:search',
-    name: 'SearchProduct',
-    component: () => import('../components/SearchProduct.vue')
+    path: "/search/:search",
+    name: "SearchProduct",
+    component: () => import("../components/SearchProduct.vue"),
   },
   {
-    path: '/cart',
-    name: 'Cart',
-    component: () => import('../components/Cart.vue')
+    path: "/cart",
+    name: "Cart",
+    component: () => import("../components/Cart.vue"),
+    // beforeEnter: (to, from, next) => {
+    //   // if (localStorage.getItem("isLogin") == false){
+    //   //   // next("/login")
+    //   // }
+    // }
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: () => import("../views/Login.vue"),
+  },
+  {
+    path:"/logout",
+    name:"Logout"
   }
-]
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;

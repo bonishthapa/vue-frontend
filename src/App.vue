@@ -5,20 +5,18 @@
       <Navbar />
       <!-- <Product /> -->
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <script>
 // import Product from '@/components/Product.vue'
-import Navbar from '@/components/Navbar.vue'
+import Navbar from "@/components/Navbar.vue";
 export default {
-  components:{
+  components: {
     Navbar,
-  //   // Product
-  }
-}
+    //   // Product
+  },
+};
 </script>
-<style>
-
-</style>
+<style></style>

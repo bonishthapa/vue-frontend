@@ -10,15 +10,17 @@
   "dependencies": {
     "axios": "^0.24.0",
     "core-js": "^3.6.5",
+    "khalti-checkout-web": "^2.2.0",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
+    
     "@vue/cli-plugin-router": "^4.5.15",
     "@vue/cli-service": "~4.5.0",
+    
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
@@ -28,7 +30,8 @@
     },
     "extends": [
       "plugin:vue/essential",
-      "eslint:recommended"
+      "eslint:recommended",
+      "@vue/prettier"
     ],
     "parserOptions": {
       "parser": "babel-eslint"
