@@ -1,4 +1,12 @@
 import axios from "axios";
+import routes from '@/router/index'
+import jwt_decode from "jwt-decode";
+
+
+
+
+
+
 
 const state={
     token:"",
@@ -19,19 +27,33 @@ const actions={
         // console.log("user in product", user);
         const response = await axios.post('http://localhost:8080/api/token/',user)
         // console.log("backend login",response.data);
+        const user1 = jwt_decode(response.data.access)
+        console.log("user is",user1);
         if (response.data.access){
+            user = jwt_decode(response.data.access)
+            console.log("admin user",user.role);
+            if (user.role == 'Admin'){
+                
+                routes.push({name:"AdminHome"})
+            }
+            else{
+                routes.push({name:"Home"})
+            }
             commit("setToken",response.data.access);
             localStorage.setItem("token",response.data.access)
+            localStorage.setItem("refresh",response.data.refresh)
             localStorage.setItem("isLogin",true)
-            // this.$router.push({name:"Home"})
+            
         }
         else{
             commit("setResponse")
         }
       },
     logoutUser(){
-        localStorage.removeItem("token")
-        localStorage.setItem("isLogin",false) 
+        localStorage.setItem("token","null")
+        localStorage.setItem("refresh","null")
+        localStorage.setItem("isLogin",false)
+        routes.push('/login')
     },
     async fetchUserdetail({commit}){
         let token = localStorage.getItem("token")
@@ -59,3 +81,6 @@ export default{
     actions,
     mutations
 }
+
+
+

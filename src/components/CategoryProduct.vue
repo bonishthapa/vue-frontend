@@ -1,15 +1,15 @@
 <template>
   <div class="category-product">
     <div class="container">
-      <div v-if="scategory.product.length > 1">
+      <div >
         <div class="row">
           <div
             class="col-md-4"
             v-for="product in scategory.product"
             :key="product.id"
           >
-            <div class="card" style="width: 18rem" v-if="product.is_active">
-              <img class="card-img-top" src="" alt="Card image cap" />
+            <div class="card" style="width: 18rem" >
+              <img class="card-img-top" :src="product.image" alt="Card image cap" />
               <div class="card-body">
                 <h5 class="card-title" @click="fetchProductDetail(product.id)">
                   <router-link :to="'/productdetail/' + product.id"
@@ -26,7 +26,7 @@
           </div>
         </div>
       </div>
-      <div v-else-if="(scategory.product.length = 1)">
+      <!-- <div v-else-if="(scategory.product.length = 1)">
         <div class="row">
           <div
             class="col-md-4"
@@ -54,7 +54,7 @@
       <div v-else>
         <br />
         <h4 class="no-item">No Item in Category</h4>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -70,7 +70,8 @@ export default {
   methods: {
     ...mapActions(["fetchCategoryDetail"]),
     fetchData() {
-      const fetchedId = this.$route.params.id;
+      let fetchedId = this.$route.params.id;
+      console.log(fetchedId);
       this.fetchCategoryDetail(fetchedId);
     },
   },

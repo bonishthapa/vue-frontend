@@ -5,7 +5,7 @@
         <div class="row">
           <div class="col-md-4" v-for="product in allProducts" :key="product.id">
             <div class="card card-style" style="width: 18rem">
-              <img class="card-img-top" src="" alt="Card image cap" />
+              <img class="card-img-top" :src="product.image" alt="Card image cap" />
               <div class="card-body">
                 <h5 class="card-title" @click="fetchProductDetail(product.id)">
                   <router-link :to="'/productdetail/' + product.slug">{{product.name}}</router-link>
@@ -14,7 +14,7 @@
                   Some quick example text to build on the card title and make up the
                   bulk of the card's content.
                 </p>
-                <button class="btn btn-primary" @click="addToCart(product)">
+                <button class="btn btn-primary" @click="addToCart(product.id)">
                   Add to Cart
                 </button>
               </div>

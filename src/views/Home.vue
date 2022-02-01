@@ -1,11 +1,14 @@
 <template>
-  <div class="home">
-    <!-- <Navbar :cart="cart"/> -->
-    <div class="container">
-      <!-- <Product v-for="product in allProducts" :key="product.id" :product="product"/> -->
-      <Product @newCart="newCart" />
+  <div>
+    <!-- <Navbar /> -->
+    <div class="home">
+      <!-- <Navbar :cart="cart"/> -->
+      <div class="container">
+        <!-- <Product v-for="product in allProducts" :key="product.id" :product="product"/> -->
+        <Product @newCart="newCart" />
+      </div>
     </div>
-  </div>
+  </div>  
 </template>
 
 <script>

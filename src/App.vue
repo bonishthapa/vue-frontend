@@ -2,7 +2,7 @@
   <div id="app">
     <div id="nav">
       <!-- <Navbar /> -->
-      <Navbar />
+      <!-- <Navbar /> -->
       <!-- <Product /> -->
     </div>
     <router-view />
@@ -11,10 +11,10 @@
 
 <script>
 // import Product from '@/components/Product.vue'
-import Navbar from "@/components/Navbar.vue";
+// import Navbar from "@/components/Navbar.vue";
 export default {
   components: {
-    Navbar,
+    // Navbar,
     //   // Product
   },
 };

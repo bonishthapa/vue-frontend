@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import store from "../index"
+import axiosInstance from "../../utils/axiosInstance";
 
 
 const state = {
@@ -28,7 +29,7 @@ const actions = {
       Authorization: 'Bearer '+token
     }
     console.log("local storage",header);
-    const response = await axios.get("http://localhost:8080/api/product/",{headers:header});
+    const response = await axios.get("http://localhost:8080/api/product/");
     commit("setProducts", response.data);
   },
   async fetchCategory({ commit }) {
@@ -49,40 +50,38 @@ const actions = {
     commit("searchProductlist", response.data);
   },
   async fetchCategoryDetail({ commit }, id) {
-    console.log("routed id is ", id);
     const response = await axios.get(
-      `http://localhost:8080/api/category/${id}`
+      `http://localhost:8080/api/category/${id}/`
     );
     console.log("categorydetail", response.data);
     commit("setCategoryDetail", response.data);
   },
   async addCartitem({ commit }, cart) {
-    console.log("parse data",JSON.stringify(cart)); 
+    console.log("parse data",cart); 
     let product = JSON.stringify(cart)
     let token = localStorage.getItem("token")
     const response = await axios({
                       method: 'post',
                       url: 'http://localhost:8080/api/order/',
                       data: {
-                        product,
+                        'product':product,
                         'quantity':5,
                       },
                       headers: {'Authorization': 'Bearer '+token}
                     });
     console.log("item", response.data);
-    commit("no", cart);
+    commit("setCart", response.data);
   },
   async fetchCartItem({ commit }) {
-    let token = localStorage.getItem("token")
-    let header={
-      'Authorization': 'Bearer '+token,
-    }
-    console.log("fetch");
-    const response = await axios.get('http://localhost:8080/api/order/new/',{headers:header})
+    // let token = localStorage.getItem("token")
+    // let header={
+    //   'Authorization': 'Bearer '+token,
+    // }
+    const response = await axiosInstance.get('/api/order/')
     console.log("item", response.data);
     commit("setCart", response.data);
   },
-  checkoutPayment(payload){
+  checkoutPayment({commit},payload){
     console.log("payload ma aako",payload);
     const token = payload.token;
     const amount = payload.amount
@@ -93,7 +92,12 @@ const actions = {
       amount:amount,
       token : token
     }
-    const response =  axios.post('http://localhost:8080/api/verify',data,{headers:header})
+    const response = axios({
+      method: 'post',
+      url: 'http://localhost:8080/api/verify/',
+      data: data,
+      // headers: {'Authorization': 'Bearer '+token}
+    });
   },
   async deleteCartItem({commit},id) {
     console.log("delete id is ",id);
@@ -102,9 +106,21 @@ const actions = {
       'Authorization': 'Bearer '+token,
     }
     // console.log("fetch");
-    const response = await axios.delete(`http://localhost:8080/api/order/new/${id}/`,{headers:header})
+    const responses = await axios.delete(`http://localhost:8080/api/order/${id}/`,{headers:header})
     // console.log("item", response.data);
     // commit("setCart", response.data);
+    const response = await axios.get('http://localhost:8080/api/order/new/',{headers:header})
+    console.log("item", response.data);
+    commit("setCart", response.data);
+  },
+  async addProductAdmin({ commit }, product) {
+    const response = await axios({
+                      method: 'post',
+                      url: 'http://localhost:8080/api/product/',
+                      data: product
+                    });
+    console.log("item", response.data);
+    commit("setProducts", response.data);
   },
   
 };

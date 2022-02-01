@@ -6,7 +6,7 @@
           <div class="preview col-md-6">
             <div class="preview-pic tab-content">
               <div class="tab-pane active" id="pic-1">
-                <img src="http://placekitten.com/400/252" />
+                <img :src="sproduct.image" />
               </div>
               <div class="tab-pane" id="pic-2">
                 <img src="http://placekitten.com/400/252" />
@@ -24,7 +24,7 @@
             <ul class="preview-thumbnail nav nav-tabs">
               <li class="active">
                 <a data-target="#pic-1" data-toggle="tab"
-                  ><img src="http://placekitten.com/200/126"
+                  ><img :src="sproduct.image"
                 /></a>
               </li>
               <li>

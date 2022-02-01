@@ -1,12 +1,9 @@
 <template>
-  <div class="about">
-    About page
-  </div>
+  
 </template>
 
 <script>
 export default {
-  name:"About"
 
 }
 </script>
@@ -14,4 +11,3 @@ export default {
 <style>
 
 </style>
-

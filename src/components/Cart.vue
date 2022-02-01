@@ -6,22 +6,26 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">Name</th>
+            <th scope="col">Quantity</th>
             <th scope="col">Price</th>
+            <th scope="col">Total Amount</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="cart in allCart" :key="cart.id">
-            <th scope="row">1</th>
+          <tr v-for="(cart,index) in allCart" :key="index">
+            <th scope="row">{{index+1}}</th>
             <td>{{ cart.product.name }}</td>
+            <td>{{ cart.quantity }}</td>
             <td>{{ cart.product.price }}</td>
+            <td>{{cart.totalprice}}</td>
             <td>
               <i class="fas fa-trash-alt" @click="deleteCartItem(cart.id)"></i>
             </td>
           </tr>
         </tbody>
       </table>
-      <h3>Total Amount: NPR </h3>
+      <h3>Total Amount: NPR {{totalAmount(allCart)}} </h3>
       <button class="btn btn-primary float-right" @click="paymentNow()">
         Pay via Khalti
       </button>
@@ -38,7 +42,7 @@ export default {
   name: "Cart",
   data(){
     return{
-      total:'',
+      totalamount:'',
       catId:''
     }
   },
@@ -48,26 +52,24 @@ export default {
   },
   methods: {
         ...mapActions(['checkoutPayment','fetchCartItem','deleteCartItem']),
-        totalAmount(allcart) {
-          let cartItem = allcart;
+        totalAmount(allCart) {
+          let cartItem = allCart;
+          // console.log("length of cart", cartItem);
           let total = 0;
-          cartItem.map((item) => {
-              total += item.price;
+          // cartItem.map((item) => {
+          //           total += item.totalprice;
+          //       });
+          cartItem.forEach(item => {
+            total +=item.totalprice
           });
-          return total;
-        },
-        totalamountCart(allCart){
-          // console.log("toatl",allCart.total);
-          
-          // allCart.map((item)=>{
-          //     return this.total += item.totalprice
-          // })
-          // console.log("total is ",total);
+          this.totalamount = total
+          return total
+          // console.log("data total", this.totalamount);
         },
         paymentNow() {
             console.log("clicked paykhalti");
             var config = {
-                publicKey: "test_public_key_79398be049a9407697bd337e8fd664df",
+                publicKey: "test_public_key_14c6b85fbc3e4824a196085f5ece64b1",
                 productIdentity: "fasdfa",
                 productName: "nasjfask",
                 productUrl: "http://gameofthrones.wikia.com/wiki/Dragons",
@@ -76,8 +78,9 @@ export default {
                 onSuccess(payload) {
                     // hit merchant api for initiating verfication
                     // debuginfo("success", "Success callback received. <br />" + JSON.stringify(payload));
-                    console.log(payload);
+                    // console.log(payload);
                     payNow(payload);
+                    // this.checkoutPayment(payload)
                 },
                 // onError (error) {
                 //   debuginfo("danger", "Error callback received. <br />" + JSON.stringify(error));
@@ -99,7 +102,12 @@ export default {
             paynowkhalti(10);
 
             var payNow=(payload)=>{
-                this.checkoutPayment(payload)
+              console.log(payload.amount);
+              const data={
+                      amount:payload.amount,
+                      token : payload.token
+                    }
+                this.checkoutPayment(data)
             }
 
             // var verifyKhaltiPayment = (payload) =>{
@@ -125,8 +133,8 @@ export default {
     },
   },
   created(){
-    this.fetchCartItem(),
-    console.log(localStorage.getItem("isLogin"))
+    this.fetchCartItem()
+   
   }
 };
 </script>
