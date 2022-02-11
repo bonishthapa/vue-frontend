@@ -3,14 +3,14 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import About from "../views/About.vue";
 import Navbar from "../components/Navbar.vue"
-import jwt_decode from 'jwt-decode'
+// import jwt_decode from 'jwt-decode'
 
 Vue.use(VueRouter);
 
-const authToken = localStorage.getItem("token")
-if(authToken !="null"){
-  const user = jwt_decode(authToken)
-}
+// const authToken = localStorage.getItem("token")
+// if(authToken !="null"){
+//   const user = jwt_decode(authToken)
+// }
 
 const routes = [
   {
@@ -114,21 +114,21 @@ const routes = [
         component:()=>import("../admin/CategoryDetail.vue")
       },
     ],
-    beforeEnter:(to,from,next)=>{
-      const authToken = localStorage.getItem("token")
-      if(authToken !="null"){
-        const user = jwt_decode(authToken)
-        if (user.role == 'Admin'){
-          next()
-        }
-        else{
-          next('/')
-        }
-      }
-      else{
-        next('/')
-      }
-    }
+    // beforeEnter:(to,from,next)=>{
+    //   const authToken = localStorage.getItem("token")
+    //   if(authToken !="null"){
+    //     const user = jwt_decode(authToken)
+    //     if (user.role == 'Admin'){
+    //       next()
+    //     }
+    //     else{
+    //       next('/')
+    //     }
+    //   }
+    //   else{
+    //     next('/')
+    //   }
+    // }
   },
 
   

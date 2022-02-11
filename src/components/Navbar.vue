@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="navbar navbar-expand-lg navbar-light">
-      <router-link class="navbar-brand" to="/">Navbar</router-link>
+      <router-link class="navbar-brand" to="/"><img src="../assets/logo.png" style="height:40px"></router-link>
       <button
         class="navbar-toggler"
         type="button"
@@ -87,14 +87,19 @@
       </div>
     </nav>
     <router-view></router-view>
+    <Footer />
   </div>  
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import Footer from "../components/Footer.vue"
 export default {
   name: "Navbar",
   props: ["cart"],
+  components:{
+    Footer
+  },
   data() {
     return {
       search: "",

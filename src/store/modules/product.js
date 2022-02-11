@@ -29,7 +29,7 @@ const actions = {
       Authorization: 'Bearer '+token
     }
     console.log("local storage",header);
-    const response = await axios.get("http://localhost:8080/api/product/");
+    const response = await axios.get("http://localhost:8081/api/product/");
     commit("setProducts", response.data);
   },
   async fetchCategory({ commit }) {
