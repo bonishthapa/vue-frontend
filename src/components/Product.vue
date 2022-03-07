@@ -75,4 +75,8 @@ export default {
 .card-style:hover{
   box-shadow: 0 8px 16px 0 rgba(1,0,3,0.5);
 }
+.card-img-top:hover{
+  transition: all .3s;
+  transform: scale(1.2);
+}
 </style>

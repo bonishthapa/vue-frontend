@@ -13,13 +13,15 @@ Vue.use(VueRouter);
 // }
 
 const routes = [
+  
   {
     path: "/",
     name: "Navbar",
+    redirect:"/#",
     component: Navbar,
     children:[
       {
-        path: "/",
+        path: "/#",
         name: "Home",
         component: Home,
       },
@@ -59,29 +61,52 @@ const routes = [
           }
         }
       },
+      {
+        path: "/login",
+        name: "Login",
+        component: () => import("../views/Login.vue"),
+        beforeEnter: (to, from, next) => {
+          let isLogin = localStorage.getItem("isLogin")
+          // console.log("login",isLogin);
+          if (isLogin == 'true'){
+            console.log("login fail");
+            next("/")
+          }
+          else{
+            next()
+          }
+          
+        }
+      },
     ]
   },
-  {
-    path: "/login",
-    name: "Login",
-    component: () => import("../views/Login.vue"),
-    beforeEnter: (to, from, next) => {
-      let isLogin = localStorage.getItem("isLogin")
-      // console.log("login",isLogin);
-      if (isLogin == 'true'){
-        console.log("login fail");
-        next("/")
-      }
-      else{
-        next()
-      }
+  // {
+  //   path: "/login",
+  //   name: "Login",
+  //   component: () => import("../views/Login.vue"),
+  //   beforeEnter: (to, from, next) => {
+  //     let isLogin = localStorage.getItem("isLogin")
+  //     // console.log("login",isLogin);
+  //     if (isLogin == 'true'){
+  //       console.log("login fail");
+  //       next("/")
+  //     }
+  //     else{
+  //       next()
+  //     }
       
-    }
-  },
+  //   }
+  // },
   {
     path:"/logout",
     name:"Logout"
   },
+  {
+    path:"/register",
+    name:"RegisterRoute",
+    component:()=>import("../views/Register.vue")
+  },
+
 
   {
     path:"/admin",

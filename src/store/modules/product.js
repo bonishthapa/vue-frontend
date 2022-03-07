@@ -29,7 +29,7 @@ const actions = {
       Authorization: 'Bearer '+token
     }
     console.log("local storage",header);
-    const response = await axios.get("http://localhost:8081/api/product/");
+    const response = await axios.get("http://localhost:8080/api/product/");
     commit("setProducts", response.data);
   },
   async fetchCategory({ commit }) {
@@ -78,7 +78,7 @@ const actions = {
     //   'Authorization': 'Bearer '+token,
     // }
     const response = await axiosInstance.get('/api/order/')
-    console.log("item", response.data);
+    console.log("item", response.error);
     commit("setCart", response.data);
   },
   checkoutPayment({commit},payload){

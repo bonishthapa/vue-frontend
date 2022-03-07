@@ -1,10 +1,7 @@
 <template>
   <div>
-    <Navbar />
+    <!-- <Navbar /> -->
     <div class="login">
-      <div class="center">
-        Welcome to Login Page
-      </div>
       <div class="wrapper fadeInDown">
         <div id="formContent">
           <!-- Tabs Titles -->
@@ -18,7 +15,11 @@
           <form @submit.prevent="onLogin">
             <input type="text" id="login" class="fadeIn second" name="login" placeholder="Username" v-model="username" />
             <input type="password" id="password" class="fadeIn third" name="login" placeholder="Password"
-              v-model="password" />
+              v-model="password" @input="handlePassword"/>
+              <span v-if="isError" style="color:red">
+                {{error_message}}
+              </span>
+              <br>
             <input type="submit" class="fadeIn fourth" value="Log In">
           </form>
 
@@ -38,34 +39,42 @@
     mapActions,
     mapGetters
   } from 'vuex'
-  import Navbar from '@/components/Navbar.vue'
 
-
+  // import Navbar from '../components/Navbar.vue'
 
   export default {
     name: 'Login',
     components:{
-      Navbar
+      // Navbar
     },
     data() {
       return {
         username: "",
-        password: ""
+        password: "",
+        isError:false,
+        error_message:null
       }
     },
     methods: {
       ...mapActions(['loginUser']),
+      handlePassword(){
+        this.isError=false
+        this.error_message=null
+      },
       onLogin() {
+        if (this.username == ""){
+          this.isError = true
+          this.error_message = "Username cannot be empty"
+        }
+        if (this.password == ""){
+          this.isError = true
+          this.error_message = "Password cannot be empty"
+        }
         let user = {
           email: this.username,
           password: this.password
         }
         this.loginUser(user)
-        // const isLogin = localStorage.getItem("isLogin")
-        // console.log("islogin",this.isLoggedUser);
-        // if (this.isLoggedUser == false){
-        //   this.$router.push({name: 'Home'})
-        // }
       }
     },
     computed: mapGetters(['token', 'isLoggedUser'])
@@ -113,7 +122,7 @@
     justify-content: center;
     width: 100%;
     min-height: 100%;
-    padding: 20px;
+    padding: 120px;
   }
 
   #formContent {

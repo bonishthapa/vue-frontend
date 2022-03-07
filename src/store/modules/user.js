@@ -24,11 +24,42 @@ const getters={
 
 const actions={
     async loginUser({ commit }, user) {
-        // console.log("user in product", user);
+        // try{
+        //     const response = await axios.post('http://localhost:8080/api/token/',user)
+        //     console.log("backend login",response);
+        //     const user1 = jwt_decode(response.data.access)
+        //     console.log("user is",error.response.data);
+        //     if (response.data.access){
+        //         user = jwt_decode(response.data.access)
+        //         console.log("admin user",user.role);
+        //         if (user.role == 'Admin'){
+                    
+        //             routes.push({name:"AdminHome"})
+        //         }
+        //         else{
+        //             routes.push({name:"Home"})
+        //         }
+        //         commit("setToken",response.data.access);
+        //         localStorage.setItem("token",response.data.access)
+        //         localStorage.setItem("refresh",response.data.refresh)
+        //         localStorage.setItem("isLogin",true)
+                
+        //     }
+        //     else{
+        //         console.log("else",response);
+        //         commit("setResponse")
+        //     }
+        // }
+        // catch(err){
+        //     console.log("error aako catch ma");
+        //     console.log(response);
+        // }
+
+
         const response = await axios.post('http://localhost:8080/api/token/',user)
-        // console.log("backend login",response.data);
+        console.log("backend login",response);
         const user1 = jwt_decode(response.data.access)
-        console.log("user is",user1);
+        console.log("user is",error.response.data);
         if (response.data.access){
             user = jwt_decode(response.data.access)
             console.log("admin user",user.role);
@@ -48,6 +79,8 @@ const actions={
         else{
             commit("setResponse")
         }
+
+
       },
     logoutUser(){
         localStorage.setItem("token","null")
